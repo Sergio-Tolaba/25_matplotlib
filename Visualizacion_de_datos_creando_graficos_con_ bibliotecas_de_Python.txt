@@ -1,1 +1,1236 @@
 Visualización de datos: creando gráficos con bibliotecas de Python
+01.Conciendo la biblioteca Matplotlib
+01
+Presentación
+En esta clase, se da la bienvenida a un nuevo entrenamiento sobre visualización de datos utilizando bibliotecas de Python, específicamente Matplotlib. El instructor, Álvaro Camacho, menciona que el curso se centrará en la creación de gráficos, añadiendo rótulos y títulos, así como en la creación de figuras y subplots. También se abordará la personalización de gráficos, el uso de diferentes colores y la exportación de visualizaciones en varios formatos. Además, se explorarán gráficos interactivos utilizando bibliotecas como Seaborn y Plotly. Para aprovechar al máximo el curso, se recomienda tener conocimientos básicos de Python y de la biblioteca Pandas para la manipulación de datos. ¡Listo para comenzar a visualizar datos!
+*****************************************************************************************
+02
+Preparando el ambiente
+ Siguiente pregunta
+
+Antes de empezar…
+
+Google Colaboratory, o Colab para abreviar, es una herramienta gratuita basada en la nube que permite ejecutar y escribir código en Python sin necesidad de configuraciones de software y hardware local. Es una excelente herramienta para ejecutar códigos de análisis de datos y otros tipos de proyectos de programación.
+
+Para comenzar a usar la plataforma es necesario que tengas una cuenta en Gmail. Si aún no tienes una, será necesario crearla. Después de iniciar sesión, ve a la página de Google Colab y haz clic en el menú superior en "Archivo" y elige la opción "Nuevo cuaderno". Este es el entorno de trabajo de Colab, donde es posible escribir y ejecutar códigos en Python.
+
+Colab se ejecuta en servidores de Google, por lo que proporciona una máquina virtual en la nube con recursos como CPU, memoria y espacio en disco. Para ejecutar un código, solo escribe en una celda de código y haz clic en el botón "Ejecutar" o presiona Shift + Enter.
+
+Los datos utilizados en el proyecto que vamos a desarrollar en este curso fueron obtenidos de Kaggle y para seguir el desarrollo del proyecto a 
+~ https://www.kaggle.com/datasets/ammaraahmad/immigration-to-canada
+lo largo del curso y reproducir todo lo que se hizo, puedes descargar el conjunto de datos directamente desde GitHub haciendo clic sobre el botón Download raw file.
+*******************************************************************************************
+03
+Conociendo los datos
+En esta clase, comenzamos a familiarizarnos con el proyecto de análisis de datos sobre la inmigración de colombianos a Canadá, utilizando un conjunto de datos histórico desde 1980 hasta 2013.
+
+Primero, accedimos a Google Colab y creamos un nuevo cuaderno llamado "visualización de datos con Python". Luego, importamos las bibliotecas necesarias, como pandas, y cargamos el archivo inmigrantes-canada.csv. Exploramos el conjunto de datos utilizando métodos como head() para ver las primeras filas y shape para conocer el número total de registros.
+
+Analizamos las columnas del dataframe y utilizamos el método info() para verificar la existencia de datos nulos y los tipos de variables. Después, configuramos el país como índice del dataframe y filtramos los datos para enfocarnos en la inmigración de colombianos, creando un nuevo dataframe que contiene los años y la cantidad de inmigrantes.
+
+Finalmente, organizamos esta información en un diccionario y lo convertimos en un nuevo dataframe llamado datos_col, que contiene los registros de migración de colombianos hacia Canadá. En la próxima clase, comenzaremos a realizar visualizaciones utilizando la biblioteca Matplotlib.
+******************************************************************
+ 04 Para saber más: en qué se relaciona el plano cartesiano con la visualización
+ Siguiente pregunta
+
+Mayza es una estudiante de Ciencia de Datos en busca de nuevos conocimientos y experiencias. En su proyecto más reciente, se encontró con un desafío: ¿cómo crear gráficos en Python que realmente transmitan la información necesaria? Con la mente inquieta y sedienta por respuestas, está trabajando en un proyecto que requiere la visualización de datos, pero no tiene idea de cómo puede comenzar. Al sumergirse en sus estudios, Mayza se encontró frecuentemente con el término plano cartesiano.
+
+Seguramente ya has oído hablar sobre este término. Puede que haya sido en alguna clase de geografía, por ejemplo. Pero, ¿qué tiene que ver esto con la visualización de datos?
+
+Imagina un mapa común, de esos que muestran calles, puntos turísticos y otras informaciones útiles para quien está viajando. Su objetivo principal es proporcionar orientaciones y referencias de forma clara y fácil de entender, al punto de ayudar al viajero a encontrar el camino correcto y tomar las mejores decisiones durante su viaje. El plano cartesiano sigue la misma idea, pero en lugar de calles y edificios, muestra información en forma de gráficos. Con él, podemos visualizar información compleja de manera intuitiva y eficiente, facilitando la toma de decisiones y la resolución de problemas gracias a los ejes que se cruzan en un punto central.
+
+Con el uso del plano cartesiano, constituido por el eje X y el eje Y, es posible crear un sistema de coordenadas bidimensional que facilita la localización y análisis de datos. Estos ejes también son conocidos por los siguientes nombres:
+
+eje x: eje de las abscisas.
+eje y: eje de las ordenadas.
+Los ejes son componentes esenciales debido a sus combinaciones, que posibilitan una mayor precisión en la identificación de puntos en un espacio bidimensional. En la figura abajo, tenemos la representación de un plano cartesiano conteniendo los ejes X y Y para ejemplificar. Con él podemos notar algunas características importantes:
+
+El eje X es horizontal.
+El eje Y es vertical.
+En el centro tenemos el origen, el valor 0 (cero).
+Hacia la derecha y hacia arriba tenemos valores positivos.
+Hacia la izquierda y hacia abajo tenemos valores negativos.
+1.png
+
+Como es posible constatar a través de estas representaciones, los ejes nos permiten especificar la ubicación exacta de un punto en un espacio bidimensional, de modo que los valores de X y Y son llamados coordenadas porque describen la ubicación del punto en relación al origen. En la figura abajo, tenemos un plano cartesiano conteniendo puntos de algunas coordenadas: (2,5), (1,2), (0,-1), (-1,-4) y (-2,-7). Considera la representación y observa los puntos disponibles. Así puedes visualizar mejor la relación entre ellos y entender patrones y tendencias en los datos.
+
+2.png
+
+Cuando creamos un gráfico, las coordenadas de los puntos son utilizadas para definir la posición de cada punto en el gráfico. Y una curiosidad interesante: el plano cartesiano y el eje de coordenadas son ampliamente usados en varios campos, incluyendo Matemáticas, Física, Ingeniería, Ciencia de Datos y muchos otros, siendo una herramienta fundamental para la representación de datos y para la visualización de resultados en diversos contextos.
+
+¿Recuerdas la saga de Mayza? Después de explorar las posibilidades en sus estudios, Mayza comprendió el concepto de plano cartesiano y cómo esto puede ser útil en su proyecto de visualización de datos. Ahora necesita algunos insights para crear un gráfico y supo que tú puedes ayudarla en eso.
+
+¿Entonces, vamos a crear nuestro primer gráfico ahora?
+*******************************************************************************************
+ 05 Creando el primer gráfico con matplotlib
+En esta clase, aprendimos a utilizar la biblioteca Matplotlib para crear gráficos en Python, específicamente para visualizar datos sobre la migración de colombianos hacia Canadá. Comenzamos importando la biblioteca matplotlib.pyplot como plt y creamos nuestro primer gráfico utilizando plt.plot, donde el eje X representa los años y el eje Y la cantidad de inmigrantes.
+
+Vimos cómo mejorar la legibilidad del gráfico ajustando los ticks de los ejes. Utilizamos plt.xticks para establecer intervalos de 5 años en el eje X y discutimos la posibilidad de hacer lo mismo en el eje Y con plt.yticks. También aprendimos a utilizar el método show para mostrar solo la gráfica, evitando mensajes innecesarios en la salida.
+
+Además, exploramos cómo ajustar el tamaño de la figura con plt.figure y el parámetro figsize, estableciendo un tamaño de 8 pulgadas de ancho por 4 de alto. Finalmente, se mencionó la importancia de añadir rótulos a los ejes y un título para mejorar la comprensión del gráfico, aunque estos ajustes se verán en la siguiente clase.
+//////////////////////////////////////////////////////////////////////////////////////
+ 06 Usando la sintaxis correcta para la creación de un gráfico
+ Siguiente pregunta
+
+Alicia está observando el crecimiento de la población de Águas de San Pedro, un acogedor pueblo ubicado en el interior de San Pablo. Debido a los análisis que ha estado realizando, ha estado buscando algunas formas de representar visualmente la tendencia del crecimiento poblacional a lo largo del tiempo y ha decidido trazar un gráfico de líneas, porque, vamos a admitirlo, los gráficos son una forma muy buena de contar historias con números.
+
+Afortunadamente, ya tiene todo lo que necesita: un DataFrame almacenado en una variable llamada df_aguas, que contiene el número de habitantes en la columna n_habitantes y los años en la columna ano. Para crear el DataFrame, se utilizó el siguiente comando:
+
+import pandas as pd
+
+df_aguas = pd.DataFrame({'ano': [1970, 1980, 1991, 2000, 2010, 2020],
+                         'n_habitantes': [830, 1091, 1697, 1883, 2703, 3500]})
+Copia el código
+¡Ahora es el momento de la verdad para Alicia! Necesita decidir cuál es la sintaxis correcta del comando para trazar un gráfico de líneas utilizando la biblioteca matplotlib y así visualizar el crecimiento poblacional de Águas de São Pedro a lo largo del tiempo. ¡Vamos allá! ¿Cuál de las siguientes opciones representa la sintaxis correcta del comando?
+
+Alternativa incorreta
+plt.plot(df_aguas['n_habitantes'], df_aguas['ano'])
+
+Alternativa incorreta
+plt.plot(df_aguas, df_aguas['ano'], df_aguas['n_habitantes'])
+
+Alternativa incorreta
+plt.plot(df_aguas['ano'], df_aguas['n_habitantes'])
+
+Este código es correcto para trazar un gráfico de líneas con el eje X representando el año y el eje Y representando el número de habitantes en Águas de San Pedro, ya que el primer argumento siempre corresponde al eje X y el segundo al eje Y.
+
+Alternativa incorreta
+plt.plot( x='ano', y='n_habitantes')
+
+¡Enhorabuena, has acertado!
+ Discutir en el Foro
+ Siguiente
+*************************************************************************************************
+ 07 Añadiendo títulos y rótulos: Los detalles descriptivos del gráfico hace que sea mejor su presentación
+plt.title('Inmigranes Colombianos en Canadá ')
+plt.xlabel('Años')
+plt.ylabel('Cantidad de inmigrantes Colombianos hacia Canadá')
+plt.show() # va a lo último para que funcione
+Importa también almacenar los gráficos en una variable para que se pueda profundizar el análisis
+-------------------------------------------------------------------------
+falta
+*********************************************************************************
+ 08 Desafío: comparando tendencias migratorias
+ Siguiente pregunta
+
+Ha llegado el momento de que pongas a prueba los conocimientos desarrollados durante la clase. Creamos un gráfico con la función plt.plot() para analizar las intrigantes tendencias de inmigración de Colombia a Canadá, desde 1980 hasta 2013. Ahora tenemos una nueva tarea: crear un gráfico de líneas comparando los números de inmigrantes de Brasil y Argentina a Canadá, los dos países más grandes de Sudamérica.
+
+Prepárate para sumergirte en las fascinantes líneas que conectan estos países sudamericanos con el territorio canadiense. En esta misión, la elaboración de este gráfico puede ser útil para comprender las tendencias migratorias de estos países a Canadá a lo largo del tiempo y cómo se comparan entre sí. Al analizar estos factores, podemos obtener una visión más amplia del panorama migratorio en Sudamérica.
+
+¡No te preocupes!
+
+Esta nueva tarea es más desafiante, ya que requiere un análisis comparativo entre dos países. Sin embargo, también te permitirá obtener un aprendizaje enriquecedor. Por lo tanto, explora las diversas posibilidades y recuerda los elementos esenciales de un gráfico: título, etiquetas en los ejes x e y y las marcas del eje x, que deben definirse cada 5 años.
+
+Además, tendrás que descubrir cómo agregar una leyenda para poder identificar la línea de cada país. Siguiendo estas instrucciones, habrás construido un gráfico sólido que te permitirá un análisis significativo y profundo.
+
+Después de crear el gráfico, analiza el resultado obtenido y reflexiona sobre las siguientes preguntas:
+
+¿Hay alguna tendencia o patrón común en los datos de ambos países?
+¿Cuáles son los períodos con mayor número de inmigrantes en ambos países?
+¿Estás listo para avanzar?
+Ver opinión del instructor
+Opinión del instructor
+
+En clase solo extrajimos los datos de Colombia, pero ahora podemos ejecutar el siguiente comando para extraer los datos de Brasil y Argentina:
+
+df_comparacion = df.loc[['Brasil', 'Argentina'], anos]
+Copia el código
+De esta manera, tendremos una línea para cada país y las columnas que contienen los números de inmigrantes para cada año.
+
+El DataFrame df_comparacion se puede transponer para intercambiar las filas por las columnas y las columnas por las filas del DataFrame. Luego, podemos usar la propiedad .T (abreviatura de transpose):
+
+df_comparacion = df_comparacion.T
+Copia el código
+Como resultado, tenemos una columna con los años y dos columnas para cada país que contienen el número de inmigrantes.
+
+df_comparacion.head()
+Copia el código
+index	Brasil	Argentina
+1980	211	368
+1981	220	426
+1982	192	626
+1983	139	241
+1984	145	237
+Para trazar el gráfico, podemos usar la función plt.plot(), que permite crear dos líneas en el gráfico: una para Brasil y otra para Argentina. El parámetro label se utiliza para agregar etiquetas a los gráficos, permitiendo identificar qué línea corresponde a cada conjunto de datos.
+
+La función plt.title() define el título del gráfico, que en este caso es "Inmigración de Brasil y Argentina a Canadá". La función plt.xlabel() define la etiqueta del eje X del gráfico, que es "Año", mientras que la función plt.ylabel() define la etiqueta del eje Y, que es "Número de Inmigrantes".
+
+La función plt.xticks() define los marcadores de posición (ticks) en el eje X del gráfico, que en este caso son los años en que se recopilaron los datos. El argumento es una lista de strings con los valores deseados. La función plt.legend() agrega una leyenda al gráfico, reconociendo el parámetro label definido en la función plt.plot(). Por último, la función plt.show() muestra el gráfico en la pantalla.
+
+plt.plot(df_comparacion['Brasil'], label='Brasil')
+plt.plot(df_comparacion['Argentina'], label='Argentina')
+plt.title('Inmigración de Brasil y Argentina a Canadá')
+plt.xlabel('Año')
+plt.ylabel('Número de Inmigrantes')
+plt.xticks(['1980', '1985', '1990', '1995', '2000', '2005', '2010'])
+plt.legend()
+plt.show()
+Copia el código
+¿Cómo es el gráfico que obtuviste? Te invito a que lo publiques en el foro del curso y a través de tus redes para que muestres tu progreso! Con este gráfico, podemos observar que las tendencias de inmigración en Brasil y Argentina eran bastante similares al principio del período. Sin embargo, a partir de los años 2000, los números de inmigrantes en Argentina comenzaron a aumentar y alcanzaron los valores más altos entre 2000 y 2005, antes de disminuir y alcanzar valores muy bajos en los años más recientes. Por otro lado, en el caso de Brasil, los aumentos en la inmigración comenzaron después de 2005 y parecen haber alcanzado el valor más alto en 2010.
+***********************************************************************
+09 Lo que aprendimos
+ Siguiente pregunta
+
+Lo que aprendimos en esta clase:
+
+Extraer una serie de datos de un DataFrame;
+Importar el módulo pyplot de la biblioteca Matplotlib;
+Graficar un gráfico con la biblioteca Matplotlib;
+Cambiar los ticks de los ejes X e Y;
+Mostrar el gráfico con la función plt.show();
+Modificar el tamaño del gráfico;
+Agregar un título al gráfico;
+Agregar etiquetas a los ejes X e Y;
+Crear una figura;
+Modificar la frecuencia de los ticks del eje X en una figura.
+
+********************************************************************************
+********************************************************************************
+02. Creando figuras con Matplotlib
+01
+Proyecto del aula anterior
+ Siguiente pregunta
+
+¿Comenzando en esta etapa? Aquí puedes descargar los archivos del proyecto que hemos avanzado hasta el aula anterior.
+
+Descargue los archivos en Github o haga clic aquí para descargarlos directamente.
+**************************************************************************************+
+02
+Creando una figura
+En esta clase, aprendimos a crear figuras utilizando la biblioteca Matplotlib en Python. Comenzamos recordando que teníamos un dataset sobre la inmigración hacia Canadá y generamos nuestra primera gráfica. Sin embargo, para mejorar nuestras gráficas, es importante almacenar la figura y la gráfica en variables.
+
+Utilizamos el método subplots de pyplot para crear un lienzo (almacenado en la variable fig) y una gráfica (almacenada en la variable ax). Definimos el tamaño de la figura con figsize igual a 8x4, lo que facilita la visualización.
+
+Luego, graficamos los datos utilizando la función plot, donde colocamos los años en el eje x y los datos de inmigrantes. Al final, usamos plt.show() para mostrar la gráfica. También aprendimos a configurar los ticks del eje x de forma dinámica utilizando el método set_major_locator con plt.MultipleLocator, lo que permite que los ticks se coloquen automáticamente en intervalos de 5.
+
+Aún nos queda por añadir el título y las etiquetas a la gráfica, lo cual se abordará en la próxima clase.
+***********************************************************************
+03
+Añdiendo títulos y rótulos en la figura
+En esta clase, aprendimos a crear figuras utilizando la biblioteca Matplotlib en Python, enfocándonos en cómo añadir títulos y rótulos a nuestros gráficos. Inicialmente, se graficó sin almacenar la figura en una variable, utilizando métodos como plt.title, plt.xlabel y plt.ylabel. Sin embargo, al crear una figura y almacenar su objeto, cambiamos a usar ax, lo que nos permite establecer el título y los rótulos de manera más estructurada.
+
+Se explicó cómo usar ax.set_title para añadir un título más completo, incluyendo un periodo de tiempo con una nueva línea utilizando \n. También se utilizaron ax.set_xlabel y ax.set_ylabel para etiquetar los ejes x e y, respectivamente. Esto nos ayudó a visualizar la inmigración de colombianos hacia Canadá entre 1980 y 2013, proporcionando un marco de referencia para entender los datos.
+
+Se destacó la importancia de analizar el contexto socioeconómico de los datos y se mencionó que un gráfico de líneas es una excelente forma de visualizar tendencias a lo largo del tiempo. Finalmente, se planteó la pregunta sobre qué otros gráficos podríamos generar para entender mejor el conjunto de datos, lo cual se explorará en la próxima clase.
+//////////////////////////////////////////////////////////////////////////////////////////////
+ 04 Facilitando la interpretación de datos
+ Siguiente pregunta
+
+En un mundo impulsado por la búsqueda constante de ideas y resultados, Tomás es un científico de datos que está trabajando en un proyecto que implica el análisis y la predicción de ventas de un comercio electrónico. Inmerso en este desafiante proyecto, concentra sus esfuerzos en alcanzar sus objetivos.
+
+En este momento, los datos que posee están almacenados en un DataFrame llamado df, que fue obtenido con el siguiente código:
+
+import pandas as pd
+
+datos_ventas = {
+    'mes': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    'ventas': [10000, 11000, 12000, 13000, 14000, 15000, 16000, 17000, 18000, 19000, 20000, 21000]
+}
+
+df = pd.DataFrame(datos_ventas)
+Copia el código
+Con sus grandes habilidades, Tomás necesita crear un gráfico que muestre la evolución de las ventas a lo largo del tiempo y agregar un título y etiquetas a los ejes X e Y para facilitar la interpretación de los datos. Para esto, decide utilizar la biblioteca Matplotlib.
+
+¿Cuál es el código correcto para crear la figura, agregar un título y las etiquetas de los ejes que le indicarías?
+
+Alternativa incorreta
+fig, ax = plt.subplots(figsize=(10, 4))
+ax.plot(df['mes'], df['ventas'])
+ax.set_title('Evolución de las ventas diarias')
+ax.ylabel('Número de ventas')
+ax.xlabel('Mes')
+plt.show()
+
+Alternativa incorreta
+fig, ax = plt.subplots(figsize=(10, 4))
+ax.plot(df['mes'], df['ventas'])
+ax.set_title('Evolución de las ventas diarias')
+ax.set_ylabel('Número de ventas')
+ax.set_xlabel('Mes')
+plt.show()
+
+El código es correcto, ya que crea un objeto de figura fig y un objeto de ejes ax utilizando la función plt.subplots(). Luego, el objeto ax se utiliza para trazar el gráfico de línea con la función plt.plot(). Las etiquetas de los ejes y el título se agregan utilizando las funciones set_xlabel(), set_ylabel() y set_title(). Finalmente, el gráfico se muestra utilizando la función show().
+
+Alternativa incorreta
+fig = plt.subplots(figsize=(10, 4))
+ax.plot(df['mes'], df['ventas'])
+ax.set_title('Evolución de las ventas diarias')
+ax.set_ylabel('Número de ventas')
+ax.set_xlabel('Mes')
+plt.show()
+
+Alternativa incorreta
+fig, ax = plt.subplots(figsize=(10, 4))
+ax.plot(df['mes'], df['ventas'])
+ax.title('Evolución de las ventas diarias')
+ax.set_ylabel('Número de ventas')
+ax.set_xlabel('Mes')
+plt.show()
+
+¡Enhorabuena, has acertado!
+************************************************************************************
+ 05 Creando subplots en uns dirección
+En esta clase, aprendimos a crear gráficos utilizando la biblioteca Matplotlib en Python, enfocándonos en la creación de subgráficos. Comenzamos creando un lienzo y una figura, almacenándolos en variables. Utilizamos plt.subplots para definir una fila con dos gráficos.
+
+El primer gráfico es un gráfico de líneas que muestra la tendencia de la inmigración de colombianos hacia Canadá entre 1980 y 2003. Configuramos el título, las etiquetas de los ejes y el rango de los ticks en el eje x.
+
+El segundo gráfico es un box plot que representa la cantidad de inmigrantes colombianos. Este gráfico nos proporciona información estadística, como el valor mínimo, máximo, cuartiles y la mediana. También configuramos el título y las etiquetas de los ejes para este gráfico.
+
+Finalmente, aprendimos a interpretar el box plot y a utilizar el método describe() de Pandas para obtener estadísticas descriptivas sobre los datos. Con estos dos gráficos, logramos una mejor comprensión del comportamiento de la inmigración de colombianos en el periodo analizado.
+///////////////////////////////////////////////////////////////////////////////////////////
+ 06 Analizando datos climáticos
+ Siguiente pregunta
+
+Conoce a Ana, una científica de datos que se ocupa del análisis climático en una empresa de renombre. Ella creó un gráfico con dos subgráficos para mostrar la variación de la temperatura media mensual y la distribución de los datos de temperatura para una ciudad específica. El subgráfico de la izquierda muestra la evolución de la temperatura a lo largo del año mediante un gráfico de líneas. Mientras que el subgráfico de la derecha muestra un diagrama de caja con la distribución de las temperaturas mensuales, permitiendo así una visualización detallada de la variación de la temperatura para el período en análisis.
+
+4.png
+
+Basándote en esta figura, elige la alternativa correcta:
+
+Alternativa incorreta
+Ana utilizó la función plt.subplots() para crear los subgráficos y pasó a esta función los valores 1,2 para crear una fila y dos columnas de subgráficos.
+
+
+La función plt.subplots() devuelve una figura y una matriz de ejes (axes), que se puede usar para crear múltiples subgráficos en una figura. Al pasar los valores 1 y 2 como argumentos, Ana creó una figura con una fila y dos columnas de subgráficos, que es exactamente el diseño descrito en la alternativa.
+
+Alternativa incorreta
+La figura muestra la temperatura media diaria de una ciudad durante un año. El subgráfico de la izquierda muestra la evolución de la temperatura media diaria, mientras que el subgráfico de la derecha muestra la distribución de la temperatura a lo largo del período de un año.
+
+
+Alternativa incorreta
+Ana usó la función plt.plot() para crear el subgráfico de la izquierda y definió el título pasando el argumento title='Variación de la temperatura media mensual' a esta función.
+
+
+Alternativa incorreta
+En el subgráfico de la derecha, Ana usó la función plt.boxplot() y pasó a esta función los argumentos df['mes'] y df['temperatura'].
+***********************************************************************************************
+ 07 Creando subplots en dos direcciones #1
+En esta clase, aprendimos a crear gráficos utilizando la biblioteca Matplotlib en Python, específicamente enfocándonos en la creación de subplots en dos direcciones. Comenzamos con la idea de graficar datos de varios países de Sudamérica, como Colombia, Argentina, Brasil y Perú, organizando cuatro gráficos en una cuadrícula de dos filas y dos columnas.
+
+Utilizamos plt.subplots para crear la figura y los ejes, estableciendo un tamaño de figura de 10 por 6 pulgadas. Cada gráfico se dedicó a uno de los países, y asignamos títulos a cada uno de ellos. También discutimos la importancia de ajustar el espacio entre los subplots utilizando fig.subplots_adjust, corrigiendo un error en la nomenclatura de los parámetros de ajuste.
+
+Además, aprendimos a iterar sobre los ejes de los gráficos con un bucle for para mejorar la presentación, ajustando los ejes y etiquetas de cada gráfico. Finalmente, se mencionó la necesidad de considerar la escala de los datos para evitar confusiones en la interpretación de las tendencias de inmigración de cada país.
+
+En resumen, esta clase nos proporcionó herramientas para visualizar datos de manera más efectiva y clara, preparando el terreno para un análisis más profundo en las próximas lecciones.
+
+Copiar texto de Luri al portapapeles
+******************************************************************************+
+ 08 Creando subplots en dos direcciones #2
+En esta clase, aprendimos a crear gráficos utilizando la biblioteca Matplotlib en Python, enfocándonos en cómo graficar múltiples figuras en dos direcciones. Se discutió la importancia de unificar la escala de los ejes Y para evitar interpretaciones erróneas de los datos, especialmente al comparar la migración de cuatro países sudamericanos: Colombia, Brasil, Argentina y Perú.
+
+Se establecieron valores mínimos y máximos para el eje Y, utilizando ax.set_ylim, y se iteró sobre cada gráfico para aplicar estos límites. Además, se añadió una cuadrícula con ax.grid para mejorar la visualización de los datos.
+
+Se analizaron las tendencias de migración de cada país, destacando picos y patrones en los datos. Finalmente, se aprendió a añadir un título al gráfico con fig.suptitle, proporcionando un contexto claro sobre el periodo de análisis, que abarca desde 1980 hasta 2013.
+
+La clase concluyó mencionando que aún hay más aspectos para personalizar los gráficos, que se abordarán en futuras lecciones.
+************************************************************************************+
+ 09 Para saber más: buenas prácticas de visualización de datos para subplots
+ Siguiente pregunta
+
+Juliana, una talentosa científica de datos, decidió sumergirse en un intrigante proyecto en el universo del retail. Con su conocimiento, y a través de su análisis de datos, ha investigado las ventas mensuales de diferentes productos en varias tiendas de la empresa. Con el objetivo de entender mejor esos datos, decidió crear un conjunto de subplots para comparar las ventas de diferentes productos en cada tienda.
+
+Sin embargo, en el transcurso de la creación de esos subplots, Juliana pudo notar la importancia de seguir algunas buenas prácticas de visualización de datos para crear subplots efectivos y así garantizar que la figura resultante fuera clara y fácil de entender. Aquí están algunas sugerencias que ayudaron a Juliana a hacer su figura más detallada e informativa:
+
+Usar títulos claros y concisos: el título de cada subplot debe ser corto y descriptivo para que el lector pueda rápidamente entender lo que se está mostrando en cada elemento. Además, si estás comparando diferentes conjuntos de datos, puede ser útil añadir un subtítulo explicando lo que se está comparando.
+
+Mantener la misma escala en los ejes: para evitar distorsiones en la comparación entre los subplots, es importante mantener la misma escala en los ejes X e Y en todos ellos. Esto se puede hacer utilizando las funciones set_xlim() y set_ylim().
+
+Evitar la superposición de gráficos: es importante asegurarse de que cada subplot esté claramente separado de los demás, sin superposición. Si hay una superposición, la figura puede volverse confusa y difícil de entender. Una manera de evitar superposiciones es ajustar el tamaño de los subplots para que haya espacio suficiente entre ellos. Además, podemos añadir la función fig.subplots_adjust() que recibe el parámetro hspace. Controla el espaciado vertical entre los subplots y el parámetro wspace, que controla el espaciado horizontal. El valor por defecto de estos parámetros es 0.2, pero puedes ajustarlos según tus necesidades.
+
+Recuerda que el valor pasado a estos parámetros es un número decimal que representa la fracción del tamaño de la figura, por ejemplo, 0.5 significa que el espaciado será del 50% de la altura/anchura de la figura.
+
+Con estas buenas prácticas en mente, Juliana creó sus subplots y logró visualizar las ventas diarias de diferentes productos de forma clara y efectiva en varias tiendas de la empresa. Fue capaz de identificar patrones interesantes en los datos y usó esa información para hacer recomendaciones útiles para la empresa, dejándonos insights valiosos sobre buenas prácticas de visualización de datos para subplots.
+
+¿Qué tal impulsar la calidad y el impacto de tus visualizaciones poniendo en práctica estas valiosas sugerencias? Explora y experimenta todas estas posibilidades. Esta iniciativa, sin duda alguna, marcará una diferencia en tu desarrollo.
+************************************************************************************************+
+10 Desafío: visualizando datos de ventas de tiendas diferentes
+ Siguiente pregunta
+
+Trabajas como Analista de Datos en una empresa minorista y te asignaron la tarea de crear una figura con subgráficos que muestre la variación en el número de ventas en cuatro tiendas diferentes a lo largo de un año. La gerencia de la empresa necesita visualizar claramente las tendencias de ventas en cada tienda, para que puedan tomar decisiones estratégicas sobre inventarios y acciones de marketing. Para ello, debes crear cuatro subgráficos dispuestos en dos filas y dos columnas, donde cada subgráfico represente una tienda diferente. En este desafío, cada subgráfico debe presentar un gráfico de líneas que muestre la variación del número de ventas a lo largo de los meses del año.
+
+¡Ahora es el momento de mostrar tus habilidades en análisis de datos y visualización! Para crear el DataFrame con el número de ventas de las tiendas y crear la figura, utiliza la siguiente información:
+
+tiendas = ['A', 'B', 'C', 'D']
+ventas_2022 = {'Ene': [100, 80, 150, 50],
+    'Feb': [120, 90, 170, 60],
+    'Mar': [150, 100, 200, 80],
+    'Abr': [180, 110, 230, 90],
+    'May': [220, 190, 350, 200],
+    'Jun': [230, 150, 280, 120],
+    'Jul': [250, 170, 300, 140],
+    'Ago': [260, 180, 310, 150],
+    'Sep': [240, 160, 290, 130],
+    'Oct': [220, 140, 270, 110],
+    'Nov': [400, 220, 350, 190],
+    'Dec': [300, 350, 400, 250]}
+Copia el código
+Consejo: Para facilitar la creación de los subgráficos, puedes definir la columna "tiendas" como índice del DataFrame y utilizar la propiedad loc de la biblioteca Pandas para trazar cada una de las tiendas.
+
+¡No olvides agregar un título general a la figura, títulos a los subgráficos y etiquetas a los ejes! Además, asegúrate del tamaño de la figura y del espaciado entre los subgráficos.
+
+Ver opinión del instructor
+Opinión del instructor
+
+Para crear un DataFrame con estos datos, utilizando la columna "tiendas" como índice, puedes ejecutar el siguiente código:
+
+df = pd.DataFrame(ventas_2022, index=tiendas)
+Copia el código
+El resultado será el siguiente DataFrame:
+
+index	Ene	Feb	Mar	Abr	May	Jun	Jul	Ago	Sep	Oct	Nov	Dec
+A	100	120	150	180	220	230	250	260	240	220	400	300
+B	80	90	100	110	190	150	170	180	160	140	220	350
+C	150	170	200	230	350	280	300	310	290	270	350	400
+D	50	60	80	90	200	120	140	150	130	110	190	250
+Para crear una figura con un título general que contenga los cuatro subgráficos, cada uno con su respectivo título y etiquetas en los ejes, puedes ejecutar el siguiente código:
+
+# Crear la figura y los subgráficos
+
+fig, axs = plt.subplots(2, 2, figsize=(14, 8))
+
+# Ajustar los espaciados entre los subgráficos
+
+plt.subplots_adjust(wspace=0.3, hspace=0.4)
+
+# Agregar un título general para los subgráficos
+
+fig.suptitle('Ventas en el período de enero a diciembre de 2022 en las tiendas A, B, C y D')
+
+# Agregar los gráficos en cada uno de los subgráficos
+
+axs[0, 0].plot(df.loc['A'])
+axs[0, 0].set_title('Ventas en la tienda A')
+axs[0, 1].plot(df.loc['B'])
+axs[0, 1].set_title('Ventas en la tienda B')
+axs[1, 0].plot(df.loc['C'])
+axs[1, 0].set_title('Ventas en la tienda C')
+axs[1, 1].plot(df.loc['D'])
+axs[1, 1].set_title('Ventas en la tienda D')
+
+# Agregar etiquetas para los ejes X y Y
+
+for ax in axs.flat:
+    ax.set_xlabel('Mes')
+    ax.set_ylabel('Número de ventas')
+
+# Mostrar la figura
+
+plt.show()
+Copia el código
+El resultado de el código es la siguiente figura:
+
+7.png
+
+ Discutir en el Foro
+ *********************************************************************************************
+11 Lo que aprendimos
+ Siguiente pregunta
+
+Lo que aprendimos en esta clase:
+
+Agregar título y etiquetas a los ejes en una figura;
+Crear una figura que contenga subplots en una dirección;
+Crear una figura que contenga subplots en dos direcciones;
+Modificar el espaciado entre subplots;
+Entender cómo diferentes escalas en el eje Y pueden causar distorsiones en la interpretación de los resultados;
+Aplicar la misma escala en el eje Y en una figura que contenga subplots;
+Crear un título general en una figura que contenga subplots.
+*************************************************************************************************++
+*************************************************************************************************
+03. Personalizando gráficos con Matplotlib
+01
+Proyecto del aula anterior
+ Siguiente pregunta
+
+¿Comenzando en esta etapa? Aquí puedes descargar los archivos del proyecto que hemos avanzado hasta el aula anterior.
+
+Descargue los archivos en Github o haga clic aquí para descargarlos directamente.
+******************************************************************************************+
+02
+Personalizando visualizaciones con matplotlib
+En esta clase, aprendimos a personalizar gráficos utilizando la biblioteca Matplotlib en Python. Comenzamos revisando cómo cambiar el tamaño de la fuente para el título y los rótulos, utilizando el parámetro fontsize. También ajustamos el tamaño de los números en los ejes, aplicando set_tick_params para modificar el tamaño de las tics en los ejes x e y.
+
+Además, se discutió la importancia de la ubicación del título, sugiriendo moverlo a la izquierda con el parámetro loc='left'. Aprendimos a cambiar el grosor de la línea del gráfico con el parámetro linewidth y a añadir marcadores opcionales utilizando el parámetro marker.
+
+Finalmente, se mencionó que hay muchas más propiedades que se pueden ajustar para mejorar la visualización de los gráficos, lo que nos permite crear representaciones más atractivas y legibles de los datos.
+*****************************************************+
+03
+Para saber más: alterando los estilos
+ Siguiente pregunta
+
+Personalizamos las visualizaciones en el video anterior, cambiando el tamaño de las fuentes, modificando la posición del título y también añadiendo elementos como marcadores y rejillas a las figuras. Pero además, según la documentación de la biblioteca Matplotlib, podemos aplicar diferentes estilos para permitirnos adaptar las visualizaciones de acuerdo con nuestras necesidades. Para saber qué estilos están disponibles, podemos imprimir plt.style.available, donde style es un submódulo de la biblioteca Matplotlib utilizado para definir estilos de visualización:
+
+print(plt.style.available)
+Copia el código
+El resultado es una lista que contiene todos los estilos disponibles:
+
+['Solarize_Light2', '_classic_test_patch', '_mpl-gallery', '_mpl-gallery-nogrid', 'bmh', 'classic', 'dark_background', 'fast', 'fivethirtyeight', 'ggplot', 'grayscale', 'seaborn-v0_8', 'seaborn-v0_8-bright', 'seaborn-v0_8-colorblind', 'seaborn-v0_8-dark', 'seaborn-v0_8-dark-palette', 'seaborn-v0_8-darkgrid', 'seaborn-v0_8-deep', 'seaborn-v0_8-muted', 'seaborn-v0_8-notebook', 'seaborn-v0_8-paper', 'seaborn-v0_8-pastel', 'seaborn-v0_8-poster', 'seaborn-v0_8-talk', 'seaborn-v0_8-ticks', 'seaborn-v0_8-white', 'seaborn-v0_8-whitegrid', 'tableau-colorblind10']
+Copia el código
+¡Podemos explorar uno de estos estilos para mejorar aún más nuestras visualizaciones!
+
+Antes de aplicar un estilo, es importante saber que cada vez que la biblioteca Matplotlib es importada en un notebook, define una configuración de tiempo de ejecución que incluye los estilos predeterminados para cada elemento de trazado creado.
+
+Por lo tanto, para evitar que el estilo se aplique a todos los gráficos trazados en el mismo notebook, podemos utilizar un código que crea una copia de las configuraciones predeterminadas de trazado de la biblioteca Matplotlib y las asigna a la variable IPython_default. Esto puede ser útil para almacenar y reutilizar las configuraciones predeterminadas de trazado o para restaurarlas después de haber sido modificadas:
+
+IPython_default = plt.rcParams.copy()
+Copia el código
+Uno de los estilos disponibles se basa en un sitio de noticias y análisis de datos llamado FiveThirtyEight, que cubre temas como política, economía, cultura, ciencia y deportes.
+
+Para utilizar el estilo 'fivethirtyeight', usamos el siguiente código:
+
+plt.style.use('fivethirtyeight')
+Copia el código
+A continuación, podemos crear la figura, que tendrá este nuevo estilo incorporado:
+
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.plot(datos_col['Año'], datos_col['Inmigrantes'])
+ax.set_title('Inmigración de colombianos hacia Canadá\n1980 a 2013', fontsize=20, loc='left')
+ax.set_ylabel('Número de Inmigrantes', fontsize=14)
+ax.set_xlabel('Año', fontsize=14)
+ax.yaxis.set_tick_params(labelsize=12)
+ax.xaxis.set_tick_params(labelsize=12)
+ax.xaxis.set_major_locator(plt.MultipleLocator(5))
+plt.show()
+Copia el código
+El resultado será el gráfico mostrado abajo:
+
+3.png
+
+Los gráficos creados con el estilo FiveThirtyEight son atractivos y poseen una estética limpia y minimalista, con líneas más gruesas y colores vibrantes.
+
+Bueno, ¿y si queremos trazar gráficos sin este estilo después de haberlo definido en el notebook? Podemos redefinir los parámetros utilizando plt.rcParams.update y pasándole la variable IPython_default que creamos anteriormente con las configuraciones predeterminadas:
+
+plt.rcParams.update(IPython_default);
+Copia el código
+Además, podemos aplicar un estilo solo a un bloque de código específico, ya que el paquete de estilo proporciona un administrador de contexto para limitar sus cambios a un ámbito específico. Para aislar tus cambios de estilo, puedes escribir el código dentro de un contexto with de la siguiente manera:
+
+with plt.style.context('fivethirtyeight'):
+  fig, ax = plt.subplots(figsize=(8, 4))
+  ax.plot(datos_col['Año'], datos_col['Inmigrantes'])
+  ax.set_title('Inmigración de colombianos hacia Canadá\n1980 a 2013', fontsize=20, loc='left')
+  ax.set_ylabel('Número de Inmigrantes', fontsize=14)
+  ax.set_xlabel('Año', fontsize=14)
+  ax.yaxis.set_tick_params(labelsize=12)
+  ax.xaxis.set_tick_params(labelsize=12)
+  ax.xaxis.set_major_locator(plt.MultipleLocator(5))
+  plt.show()
+Copia el código
+¿Te gustó este nuevo estilo? La biblioteca Matplotlib ofrece una variedad de estilos, además de FiveThirtyEight, que podemos probar y aplicar a nuestros datos. Con estas opciones, podemos hacer nuestras visualizaciones aún más atractivas, mejorando la presentación de la información que queremos transmitir.
+********************************************************************
+
+04
+Alterando colores #1
+En esta clase sobre personalización de gráficos con Matplotlib, aprendimos la importancia del uso de colores en la visualización de datos, ya que estos pueden facilitar la comunicación visual. Se discutió cómo cambiar parámetros como el grosor y el estilo de la cuadrícula utilizando el parámetro linestyle, lo que permite que el gráfico se vea más claro y atractivo.
+
+Se introdujo un nuevo conjunto de datos sobre migración en Sudamérica, creando un nuevo DataFrame llamado sudamérica a partir de un DataFrame original. Se utilizó el método query para filtrar los datos de los países sudamericanos y se graficaron los totales de inmigrantes de cada país mediante un gráfico de barras.
+
+Se explicó cómo crear la figura y el gráfico utilizando plt.subplots, y se asignaron colores a las barras a partir de una lista de colores previamente definida. Además, se configuraron títulos y etiquetas para los ejes, ajustando tamaños de fuente y evitando redundancias en las etiquetas.
+
+Finalmente, se mostró el gráfico, que aunque tenía colores bien definidos, presentaba problemas de legibilidad debido al solapamiento de los nombres de algunos países. Se sugirió que se podrían hacer ajustes adicionales para mejorar la visualización en futuras clases.
+**********************************************************************************++
+ 05 Alterando colores #2
+En esta clase, aprendimos a personalizar gráficos utilizando la biblioteca Matplotlib en Python, enfocándonos en la visualización de datos de inmigración de sudamericanos hacia Canadá.
+
+Primero, se discutió la importancia de cambiar de barras verticales a barras horizontales para mejorar la legibilidad del gráfico. Luego, se explicó cómo organizar los datos utilizando el método sort_values para que las barras más grandes aparezcan en la parte superior, facilitando así la interpretación de los datos.
+
+Además, se mostró cómo resaltar un país específico, en este caso, Colombia, cambiando su color a "forestgreen" mientras que los demás países se representaron en "silver". Esto permitió destacar la posición de Colombia en el gráfico.
+
+Finalmente, se sugirió ajustar el título y el tamaño de la fuente para mejorar aún más la presentación del gráfico, haciendo que la visualización sea más clara y atractiva. Con estos pasos, se logró crear un gráfico que no solo es informativo, sino también visualmente agradable.
+/////////////////////////////////////////////////////////////////////////////////////////
+06 Mejorando una visualización
+ Siguiente pregunta
+
+Gustavo trabaja en el área de Datos en una empresa que vende diversos productos y necesita crear un gráfico para presentar el desempeño de ventas de diversas categorías de productos durante el último año. Para generar una figura con el número de ventas se ejecutó el siguiente código:
+
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.bar(df['Categoría'], df['Ventas'])
+ax.set_title('Total de ventas por categoría')
+ax.set_xlabel('Categoría')
+ax.set_ylabel('Total de ventas')
+plt.show()
+Copia el código
+Sin embargo, la figura generada quedó de la siguiente manera:
+
+5.png
+
+¿Cómo puede Gustavo mejorar esta visualización? Marque todas las alternativas que contengan información correcta y que él pueda realizar:
+
+Alternativa correta
+Ajustar la escala del eje Y para comenzar en 2345, ya que es el valor en la categoría con menos ventas.
+
+
+Alternativa correta
+Las barras pueden ser colocadas en horizontal, para facilitar la visualización de las categorías.
+
+
+Cuando tenemos muchas categorías, puede ser más interesante utilizar un gráfico de barras horizontal en lugar de uno vertical. Esto se debe a que, en un gráfico de barras vertical, las barras pueden volverse muy estrechas y, por lo tanto, difíciles de leer, especialmente si las categorías tienen nombres largos. En cambio, en un gráfico de barras horizontal, las barras son más anchas y el eje Y se utiliza para mostrar las categorías, lo que facilita la visualización y la lectura de la información.
+
+Alternativa correta
+Dejar cada barra con un color diferente.
+
+
+Dejar las barras de un gráfico con colores diferentes puede ser una forma efectiva de resaltar las diferencias entre las categorías representadas. El color es una de las propiedades visuales más poderosas para la percepción humana y puede ayudar a enfatizar la información más importante, además de hacer que el gráfico sea más atractivo visualmente.
+
+Alternativa correta
+Ordenar las categorías de mayor a menor valor.
+
+
+Ordenar las barras de un gráfico de mayor a menor valor puede ser una forma efectiva de facilitar la comparación entre las categorías representadas. Esta aproximación hace más fácil identificar qué categorías tienen los valores más altos y cuáles tienen los valores más bajos. De esta manera, es posible destacar claramente las categorías con los mayores valores, llamando la atención del público sobre esta información. Esto puede ser especialmente útil cuando se tienen muchas categorías, ya que puede ayudar a evitar que la información se vuelva confusa y difícil de interpretar.
+
+¡Enhorabuena, has acertado!
+ Discutir en el Foro
+***********************************************************************************************+
+ 07 Añadiendo anotaciones
+En esta clase, aprendimos a personalizar gráficos utilizando la biblioteca Matplotlib en Python, enfocándonos en la adición de anotaciones para mejorar la visualización de datos.
+
+Primero, discutimos cómo enumerar los valores totales de inmigrantes en un gráfico utilizando enumerate y el dataframe Sudamérica_sorted. Para mostrar los valores exactos, utilizamos ax.text para colocar el texto en la posición adecuada, especificando el color, tamaño de fuente y alineación.
+
+Luego, abordamos la necesidad de simplificar el gráfico eliminando el marco y el eje X, utilizando ax.set_frame_on(False) y ax.xaxis.set_visible(False). También mencionamos la importancia de estar al tanto de los cambios en la documentación, ya que algunos métodos pueden haber cambiado.
+
+Finalmente, ajustamos el tamaño de la fuente y eliminamos elementos innecesarios para lograr un gráfico más limpio. Aprendimos a utilizar ax.tick_params para ocultar las marcas del eje Y y discutimos la posibilidad de exportar el gráfico, que se abordará en la próxima clase.
+
+En resumen, esta clase se centró en cómo hacer que nuestros gráficos sean más informativos y visualmente atractivos mediante anotaciones y personalización.
+*********************************************************************************************+
+ 08 Exportando gráficos
+En esta clase, aprendimos a personalizar y exportar gráficos utilizando la biblioteca Matplotlib en Python. Comenzamos creando un gráfico y ajustando varios parámetros para hacerlo más atractivo. Luego, exploramos cómo exportar estos gráficos en diferentes formatos como EPS, JPEG, PDF y PNG, siendo el formato PNG uno de los más útiles.
+
+Se explicó cómo eliminar elementos no deseados del gráfico, como las líneas superior y derecha del marco, utilizando ax.spines y el método set_visible. También discutimos la importancia de quitar el grid para mejorar la visualización.
+
+Para exportar el gráfico, utilizamos el método fig.savefig, especificando la ruta, el nombre del archivo, el formato (PNG), y configuramos opciones como el fondo transparente y la resolución (dpi). Además, ajustamos el margen del gráfico con el parámetro bbox_inches.
+
+Finalmente, se mostró cómo guardar y abrir los gráficos exportados, asegurando que la calidad de la resolución sea adecuada para presentaciones y documentos. Se mencionó que en la próxima clase se explorará otra biblioteca que complementa a Matplotlib para mejorar aún más la visualización de datos.
+*********************************************************************************************+
+ 09 Desafío: personalizando los subplots con los datos de ventas de tiendas diferentes
+ Siguiente pregunta
+
+¡Otra etapa de desafío está comenzando! Aprovecha la oportunidad propuesta y sumérgete en las posibilidades. En la clase anterior, tuviste el desafío de crear una figura con subgráficos que presentan la variación en el número de ventas en cuatro tiendas diferentes a lo largo de un año. ¡Ahora es el momento de llevar esa figura a un nuevo nivel! ¡Es hora de personalizarla! En esta segunda parte del desafío, debes explorar las opciones de personalización de los subgráficos para hacer que la figura sea más clara y atractiva para la gerencia de la empresa.
+
+Algunas ideas de personalización que puedes explorar son:
+
+Cambiar la posición de los títulos de los subgráficos a la izquierda.
+Aumentar el tamaño de la fuente del título general de la figura para resaltarlo.
+Aumentar el tamaño de los títulos y etiquetas de los ejes de los subgráficos.
+Hacer que las líneas sean más gruesas.
+Cambiar el color de las líneas de cada tienda para diferenciarlas aún más.
+¡Siéntete libre de probar más personalizaciones!
+
+Y aquí va otro consejo: puedes reducir el tamaño del código utilizando el comando for i, ax in enumerate(axs.flat):, que permite un bucle que itera sobre todos los subgráficos de la figura. Dentro de este bucle, puedes pasar las funciones plot, set_title, set_xlabel, set_ylabel, y así sucesivamente...
+
+Recuerda que los datos son los siguientes:
+
+tiendas = ['A', 'B', 'C', 'D']
+ventas_2022 = {'Ene': [100, 80, 150, 50],
+    'Feb': [120, 90, 170, 60],
+    'Mar': [150, 100, 200, 80],
+    'Abr': [180, 110, 230, 90],
+    'May': [220, 190, 350, 200],
+    'Jun': [230, 150, 280, 120],
+    'Jul': [250, 170, 300, 140],
+    'Ago': [260, 180, 310, 150],
+    'Sep': [240, 160, 290, 130],
+    'Oct': [220, 140, 270, 110],
+    'Nov': [400, 220, 350, 190],
+    'Dec': [300, 350, 400, 250]}
+Copia el código
+¡Ahora es el momento de poner manos a la obra! Experimenta diferentes personalizaciones y haz que la figura sea aún más impresionante. ¡Vamos!
+
+Ver opinión del instructor
+Opinión del instructor
+
+A continuación, tenemos un ejemplo de cómo se puede resolver este desafío. Hay varias formas de abordar este problema, y puedes usar la creatividad para encontrar soluciones diferentes e innovadoras.
+
+Este código crea una figura con 4 subgráficos (2 filas y 2 columnas), donde cada subgráfico representa las ventas de una tienda en cada mes del año. El tamaño de la figura se define con el parámetro figsize de la función subplots(). Luego, el espacio entre los subgráficos se ajusta con la función subplots_adjust().
+
+El título general de la figura se agrega con la función suptitle(), donde se define el texto y el tamaño de la fuente con el parámetro fontsize.
+
+Se crea una lista de colores con los colores que se utilizarán para trazar las líneas en cada subgráfico. El comando enumerate(axs.flat) permite que el bucle siguiente itere sobre todos los subgráficos de la figura. Dentro del bucle, se utiliza el comando plot() para trazar las ventas de la tienda correspondiente al subgráfico actual. El color de la línea se define por el índice del subgráfico en la lista de colores. El título del subgráfico se define con el nombre de la tienda y el parámetro loc='left' alinea el título a la izquierda. Las etiquetas de los ejes X y Y se definen con las funciones set_xlabel() y set_ylabel(), y las fuentes se definen por el parámetro fontsize. Las marcas de los ejes se definen con la función tick_params(). Por último, se agrega una cuadrícula a los subgráficos con la función grid().
+
+# Crear la figura y los subgráficos
+fig, axs = plt.subplots(2, 2, figsize=(14, 8))
+
+# Ajustar los espaciados entre los subgráficos
+plt.subplots_adjust(wspace=0.3, hspace=0.4)
+
+# Agregar un título general a los subgráficos
+fig.suptitle('Ventas en el periodo de enero a diciembre de 2022 en las tiendas A, B, C y D', fontsize=20)
+
+# Lista de colores
+colores = ['darkviolet', 'green', 'darkblue', 'coral']
+
+# Bucle para trazar y personalizar los subgráficos
+for i, ax in enumerate(axs.flat):
+    ax.plot(df.loc[df.index[i]], color=colores[i], lw=3)
+    ax.set_title(f'Ventas en la tienda {df.index[i]}', loc='left', fontsize=16)
+    ax.set_xlabel('Mes', fontsize=14)
+    ax.set_ylabel('Número de ventas', fontsize=14)
+    ax.tick_params(labelsize=12)
+    ax.grid(color='lightgrey')
+***************************************************************************************************************
+10 Lo que aprendimos
+ Siguiente pregunta
+
+Lo que aprendimos en esta clase:
+
+Modificar el tamaño de las fuentes del título y las etiquetas de los ejes;
+Modificar la posición del título;
+Cambiar el grosor de la línea;
+Agregar marcadores a la línea del gráfico;
+Agregar cuadrículas al fondo del gráfico;
+Cambiar el color de solo una variable;
+Cambiar los colores cuando tenemos varias categorías;
+Crear un gráfico de barras horizontal;
+Resaltar información en un gráfico;
+Agregar anotaciones de texto;
+Eliminar el marco alrededor del gráfico y hacerlo más limpio;
+Guardar las figuras.
+******************************************************************************+++
+***************************************************************************+**
+04. Conociendo la bibliotec Seaborn
+01
+Proyecto del aula anterior
+ Siguiente pregunta
+
+¿Comenzando en esta etapa? Aquí puedes descargar los archivos del proyecto que hemos avanzado hasta el aula anterior.
+
+Descargue los archivos en Github o haga clic aquí para descargarlos directamente.
+**************************************************************************************
+02
+Creando el primer gráfico con Seaborn
+~ https://matplotlib.org/stable/gallery/color/named_colors.html    (No son colores tan linos como los que ofrece Seaborn)
+~ https://seaborn.pydata.org/
+En esta clase, nos introdujimos a la biblioteca Seaborn, que se utiliza para crear gráficos más atractivos y artísticos en comparación con Matplotlib. Comenzamos aprendiendo a importar Seaborn con import seaborn as sns y configuramos un tema por defecto usando sns.set_theme(), lo que asegura que todas nuestras gráficas tengan un aspecto uniforme.
+
+Luego, trabajamos con un conjunto de datos sobre la inmigración a Canadá, creando un dataframe llamado top10 que contiene los 10 países con más inmigrantes. Utilizamos sort_values para ordenar los datos y head(10) para obtener solo los primeros diez.
+
+Finalmente, aprendimos a crear un gráfico de barras con Seaborn utilizando barplot, donde especificamos el dataframe top10, el eje x con el valor total y el eje y con los nombres de los países. También recordamos usar plt.show() para evitar el espacio de memoria en la visualización. En la próxima clase, exploraremos cómo mejorar aún más nuestros gráficos.
+***************************************************************
+03
+Personalizando las visualizaciones con Seaborn
+En esta clase, aprendimos a personalizar visualizaciones utilizando la biblioteca Seaborn en Python. Comenzamos creando un gráfico básico y luego añadimos un título y etiquetas a los ejes utilizando el objeto ax. Configuramos el título como "Top 10 países con mayor migración hacia Canadá" y añadimos etiquetas para el eje x ("número de inmigrantes") y el eje y ("año").
+
+Además, se destacó que Seaborn se basa en Matplotlib, lo que permite utilizar ambas bibliotecas en conjunto. Creamos una figura con plt.subplots, estableciendo un tamaño de 8x4 pulgadas, y almacenamos el gráfico en la variable ax utilizando sns.barplot.
+
+Aprendimos a establecer el título y las etiquetas de los ejes con métodos específicos, como ax.set_title y ax.set_xlabel, y también exploramos la variedad de paletas de colores que Seaborn ofrece, lo que permite mejorar la estética y la claridad de los gráficos. Se mencionaron diferentes paletas como tab10, hls, y rocket, que ayudan a distinguir categorías y mejorar la visualización de datos.
+
+Finalmente, se anticipó que en la próxima clase se trabajará con estas paletas de colores para crear diversas visualizaciones.
+//////////////////////////////////////////////////////////////////////////////////////////////////
+ 04 Graficando datos de una e-comerce con Seaborn
+ Siguiente pregunta
+
+Bruna, una profesional que trabaja en una empresa de comercio electrónico, tiene la responsabilidad de analizar las ventas de productos del último año. Para ello, recopiló los datos de ventas de cada mes y los almacenó en un DataFrame llamado df. Este DataFrame, que contiene la información sobre las ventas de productos, tiene una columna con los meses y una columna llamada ventas, que representa el número total de ventas realizadas en cada mes. El código para generarlo fue el siguiente:
+
+import pandas as pd
+
+meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']
+ventas = [1200, 4100, 3800, 1000, 6000, 7000, 3800, 3700, 700, 2000, 5600, 8000]
+
+df = pd.DataFrame({'mes': meses, 'ventas': ventas})
+Copia el código
+Para visualizar esta información de manera más clara, Bruna utilizó la biblioteca Seaborn para crear un gráfico de barras y obtuvo el siguiente resultado:
+
+6.png
+
+Marque todas las opciones que contengan información correcta sobre gráficos con la biblioteca Seaborn:
+
+Alternativa correta
+Para dejar el gráfico con el tema predeterminado de la biblioteca Seaborn, Bruna utilizó la función set_style() sin pasar ningún argumento.
+
+
+La función set_style() de la biblioteca Seaborn permite definir el estilo del gráfico. Cuando no se pasa ningún argumento a la función, utiliza el estilo predeterminado "darkgrid" de la biblioteca Seaborn.
+
+Alternativa correta
+La biblioteca Matplotlib no puede ser usada junto con Seaborn si queremos personalizar aún más el gráfico.
+
+
+Alternativa correta
+Bruna puede agregar un título al gráfico usando la función add.title() de la biblioteca Seaborn.
+
+
+Alternativa correta
+Bruna utilizó el código sns.barplot(x='mes', y='ventas', data=df) para trazar este gráfico de barras.
+
+
+Este código es una forma correcta de utilizar la función barplot() de la biblioteca Seaborn para trazar un gráfico de barras. El argumento x define el eje X del gráfico, que en este caso es la columna mes, y el argumento y define el eje Y del gráfico, que en este caso debe ser la columna ventas. El argumento data debe recibir el DataFrame que contiene los datos.
+
+¡Enhorabuena, has acertado!
+ Discutir en e
+********************************************************************************************************
+ 05 Utilizando diversas palettes
+En esta clase, aprendimos sobre la biblioteca Seaborn y cómo utilizar diversas paletas de colores para mejorar la visualización de datos. Se introdujo la función GenerarGrafico, que permite probar diferentes paletas al graficar. Se destacó la importancia de asignar correctamente el parámetro hue y eliminar la leyenda para evitar confusiones en la representación de los datos.
+
+Se discutieron varias paletas, como la paleta de azules, rocket, coolwarm, Paired y tab10, y se evaluó su efectividad en la representación de variables categóricas. También se mencionó la necesidad de ajustar el gráfico para que sea más claro y visualmente atractivo, eliminando elementos innecesarios y utilizando parámetros de Matplotlib para mejorar la presentación.
+
+Finalmente, se enfatizó la importancia de experimentar con diferentes configuraciones y paletas para lograr una comunicación visual efectiva de los datos. En la próxima clase, se explorarán más cambios de temas y su integración con Matplotlib.
+
+Copiar texto de Luri al portapapeles
+**************************************************************************** 489500
+ 06 Para saber más: los colores permiten que tus datos sean más fáciles de entender
+ Siguiente pregunta
+
+Las colores pueden ser un elemento poderoso para hacer tus datos más comprensibles y efectivos en la comunicación de insights. La elección de los colores puede ser un factor crucial para el éxito de un gráfico, ya que pueden ayudar a destacar información importante y atraer la atención del público.
+
+La biblioteca Seaborn ofrece diversas paletas de colores, que son combinaciones predefinidas de colores que pueden usarse en tus gráficos. Estas paletas están diseñadas para ser visualmente atractivas y para asegurar que los colores utilizados sean fácilmente distinguibles entre sí, en el caso de las paletas categóricas. Sin embargo, elegir la paleta más adecuada puede ser un desafío, ya que depende del contexto y del objetivo de la visualización. Por lo tanto, podemos considerar que es posible crear gráficos más interesantes y atractivos al elegir los colores correctos.
+
+Al elegir una paleta de colores para tu gráfico, es interesante considerar incluso las emociones que deseas transmitir al espectador. Los colores pueden despertar, por ejemplo, sentimientos de tranquilidad, entusiasmo, seriedad y mucho más. Por lo tanto, selecciona cuidadosamente los colores que ayudarán a transmitir el mensaje deseado y a crear la atmósfera adecuada para tu gráfico.
+
+Para ayudarte en este proceso, sigue algunos consejos al elegir los colores:
+
+Considera el tipo de dato que se está ploteando: datos categóricos, datos secuenciales o datos divergentes requieren diferentes tipos de paletas de colores, como discutimos en el video anterior.
+Elige colores que sean fácilmente distinguibles unos de otros, si estás usando múltiples series de datos en un solo gráfico.
+Evita colores muy brillantes y saturados, ya que pueden ser demasiado intensos y distraer la atención del público.
+Usa colores de manera consistente en todos tus gráficos para facilitar la comparación entre ellos.
+Considera el contexto en el que el gráfico será utilizado y si los colores elegidos son apropiados para ese contexto.
+Como mencionamos anteriormente, una capacidad importante de los colores es despertar diferentes reacciones en las personas que los observan. Para ilustrarlo, nota el ambiente a tu alrededor: colores como el verde generalmente se asocian con sentimientos positivos, como alegría, esperanza, crecimiento y salud. Por lo tanto, estos colores generalmente se usan para destacar información positiva o indicar que algo está yendo bien. Por otro lado, colores más oscuros como el rojo y el negro, pueden tener connotaciones negativas y usarse para llamar la atención sobre información crítica o problemática.
+
+Una Mirada a la Accesibilidad
+
+Algo que debemos considerar al crear visualizaciones de datos es la experiencia de los usuarios. ¿A qué nos referimos con esto? Debemos prestar atención a los colores y al tamaño de las fuentes que usamos, para que tengamos una visualización fácil y accesible para nuestro público.
+
+Un punto recurrente de adaptación que debemos considerar en nuestros gráficos es aquel que beneficiará a las personas con daltonismo, que tienen dificultades para distinguir ciertos colores. Incluso, existen herramientas en línea que podemos utilizar para probar si nuestros gráficos serán bien comprendidos por personas con daltonismo.
+
+Un buen sitio para verificar los colores de nuestras imágenes es Coblis - Color Blindness Simulator. En esta página puedes subir tus imágenes y visualizar cómo se ven los colores en diferentes tipos de daltonismo.
+
+~ https://www.color-blindness.com/coblis-color-blindness-simulator/
+
+Atención: Este es un tema extenso que siempre merece atención al realizar nuestras visualizaciones de datos para un público diverso. Por lo tanto, es recomendable elegir colores que tengan suficiente contraste y que sean fácilmente distinguibles entre sí.
+
+Finalmente, es importante recordar que la elección de colores no debe reemplazar la calidad de los datos y del análisis. Los colores deben usarse para complementar la información presentada en el gráfico, no para distraer o confundir a nuestro público objetivo. Por lo tanto, vale la pena invertir tiempo en el análisis de datos y en la elección de colores para asegurar que el gráfico sea efectivo y fácil de entender. De esta manera, puedes garantizar una experiencia positiva y efectiva en la comunicación de tus datos a través de las visualizaciones.
+
+ Discutir en el Foro
+******************************************************************************************
+ 07 Explorando otros temas
+¡Hola! En esta clase, exploramos a fondo la biblioteca Seaborn para la visualización de datos en Python. Aprendimos cómo personalizar nuestros gráficos ajustando parámetros y estilos visuales.
+
+Aquí tienes un resumen de los puntos clave que cubrimos:
+
+Personalización de Gráficos con Seaborn:
+Ajustamos los parámetros de Seaborn para adaptar los gráficos a nuestras necesidades específicas.
+Exploramos cómo modificar los estilos de los ejes y las etiquetas para una presentación más clara y atractiva.
+Estilos Visuales:
+Experimentamos con diferentes estilos de fondo utilizando sns.set_theme, como darkgrid y whitegrid.
+Aprendimos a eliminar los bordes innecesarios de los gráficos con sns.despine para un aspecto más minimalista.
+Gráficos Dinámicos:
+Discutimos la importancia de crear gráficos dinámicos que permitan a los usuarios seleccionar y visualizar diferentes categorías de datos de manera interactiva.
+Consideramos cómo abordar el desafío de representar múltiples categorías en un solo gráfico sin comprometer la claridad.
+Además, mencionamos la importancia de consultar la documentación de Seaborn para descubrir todas las opciones de personalización disponibles.
+*******************************************************************************+
+08
+Desafío: creando un gráfico de líneas con Seaborn
+ Siguiente pregunta
+
+¡Felicidades por llegar hasta aquí! Volviendo a los datos utilizados en el proyecto que estamos desarrollando en este curso, ahora es el momento de utilizar todos los conocimientos adquiridos sobre las bibliotecas Matplotlib y Seaborn.
+
+En esta etapa, tu desafío es crear una figura que muestre las tendencias de inmigración de los 4 mayores países de América Latina: Brasil, Argentina, Perú y Colombia. A través de esta creación, puedes explorar diversas posibilidades y mostrar de manera atractiva tu proceso de desarrollo. Y no nos olvidemos de las indicaciones. Esta figura debe tener una línea para cada país, título, etiquetas en los ejes, colores apropiados, un tema de la biblioteca Seaborn y una leyenda. Por lo tanto, piensa en cuestiones de accesibilidad, como el tamaño de las fuentes y el grosor de las líneas. Es importante elegir colores adecuados que no causen fatiga visual o dificulten la lectura de la información. Además, el tamaño de las fuentes debe ser lo suficientemente legible para que las personas puedan interpretar los datos fácilmente.
+
+Consejo: para elegir la paleta de colores, también puedes consultar la documentación de la biblioteca Matplotlib. Seaborn utiliza los colormaps de Matplotlib por defecto, además de ofrecer sus propias paletas de colores. Para aplicar una paleta de colores a todas las líneas de la figura, puedes usar la función sns.set_palette() y pasarle el nombre de la paleta elegida.
+
+Estamos emocionados por ver el resultado de tu trabajo y las historias que contarás a través de este gráfico. ¡Manos a la obra y diviértete!
+
+Ver opinión del instructor
+Opinión del instructor
+
+En la primera línea, se utiliza la función set_theme() para definir un tema para el gráfico, lo que afecta al estilo del fondo, la cuadrícula, etc.
+
+En la segunda línea, se emplea la función set_palette() para establecer una paleta de colores para el gráfico. En este caso, se está utilizando el colormap 'Dark2', que tiene una variedad de colores oscuros.
+
+En la tercera línea, se usa la función subplots() para crear una figura con un área de trazado (eje) de tamaño especificado. Luego, se utiliza la función lineplot() de Seaborn para trazar las líneas para Brasil, Argentina, Perú y Colombia. Cada línea está etiquetada con el parámetro label que lleva el nombre del país y tiene una anchura de 3 píxeles, con lw=3.
+
+Las líneas siguientes definen el título, las etiquetas de los ejes y la frecuencia de las marcas en el eje X.
+
+Finalmente, se emplea la función legend() para añadir una leyenda al gráfico, situada en la esquina superior derecha y ligeramente fuera del trazado. En el código presentado, bbox_to_anchor=(1.18, 1.02) indica que la leyenda debe estar anclada en una posición ligeramente a la derecha y arriba de la esquina superior derecha del gráfico. El valor 1.18 para X indica que la leyenda debe colocarse un 18% a la derecha del extremo derecho del gráfico, mientras que el valor 1.02 para Y indica que la leyenda debe colocarse un 2% por encima del extremo superior del gráfico. Esto ayuda a evitar que la leyenda se superponga a otras partes del gráfico.
+
+El título de la leyenda se establece como 'Países'. Por último, se llama a la función plt.show() para mostrar el gráfico.
+
+sns.set_theme()
+sns.set_palette('Dark2')
+
+fig, ax = plt.subplots(figsize=(10, 5))
+ax = sns.lineplot(df.loc['Brasil', anos], label='Brasil', lw=3)
+ax = sns.lineplot(df.loc['Argentina', anos], label='Argentina', lw=3)
+ax = sns.lineplot(df.loc['Peru', anos], label='Perú', lw=3)
+ax = sns.lineplot(df.loc['Colombia', anos], label='Colombia', lw=3)
+
+ax.set_title('Inmigración de los principales países de América del Sur\nal Canadá de 1980 a 2013', loc='left', fontsize=20)
+ax.set_xlabel('Año', fontsize=14)
+ax.set_ylabel('Número de Inmigrantes', fontsize=14)
+ax.xaxis.set_major_locator(plt.MultipleLocator(5))
+ax.legend(title='Países', loc='upper right', bbox_to_anchor=(1.18, 1.02))
+
+plt.show()
+
+*********************************************************************************************+
+09
+Lo que aprendimos
+ Siguiente pregunta
+
+Lo que aprendimos en esta clase:
+
+Importar la biblioteca Seaborn;
+Definir el tema predeterminado de la biblioteca Seaborn;
+Crear un gráfico de barras vertical y horizontal;
+Agregar título y etiquetas a los ejes;
+Utilizar las bibliotecas Seaborn y Matplotlib juntas;
+Cambiar los colores utilizando paletas;
+Explorar diferentes temas;
+Eliminar los bordes de un gráfico con la función sns.despine().
+ Dis
+************************************************************************************************++
+***********************************************************************************************
+05. Gráficos interactivos con Plotly
+01
+Proyecto del aula anterior
+ Siguiente pregunta
+
+¿Comenzando en esta etapa? Aquí puedes descargar los archivos del proyecto que hemos avanzado hasta el aula anterior.
+
+Descargue los archivos en Github o haga clic aquí para descargarlos directamente.
+
+***************************************************************************************************+
+02
+Creando nuestro primer gráfico interactivo
+¡Hola! ¡Claro que sí!
+
+En esta Aula 5 del curso, se introduce la biblioteca Plotly para crear gráficos interactivos en Python.
+
+Aquí tienes un resumen de los puntos clave:
+
+Introducción a Plotly:
+Plotly permite crear gráficos interactivos, lo que facilita la interacción y comprensión de los datos por parte de la audiencia.
+Se importa la biblioteca Plotly Express como px.
+Creación de un Gráfico Básico:
+Se crea un gráfico de línea utilizando px.line con datos de Colombia, donde el eje x representa el año y el eje y la cantidad de inmigrantes.
+Se utiliza fig.show() para mostrar el gráfico interactivo.
+Interactividad del Gráfico:
+Al pasar el mouse sobre el gráfico, se muestran los valores de cada punto.
+Se pueden realizar acciones como zoom, desplazamiento, autoescalado y reseteo de los ejes.
+Personalización del Gráfico:
+Se utiliza la función update_layout para modificar el diseño del gráfico, como el ancho (width) y la altura (height).
+Se ajusta el ángulo de los ticks en el eje x (tickangle) para mejorar la legibilidad.
+Se pueden modificar otros parámetros del gráfico, como el título.
+Exportación del Gráfico:
+El gráfico se puede descargar como una imagen png en cualquier punto específico.
+Espero que este resumen te sea de gran utilidad. ¡No dudes en preguntar si tienes más preguntas o necesitas más detalles!
+
+Copiar texto de Luri al portapapeles
+Limpiar conversación
+*******************************************************************
+ 03 Añadiendo rótulos y modificando fuentes
+¡Hola! En esta clase, aprendimos cómo mejorar nuestros gráficos interactivos con Plotly. Añadimos un título más visible en una nueva línea: "Inmigración de colombianos hacia Canadá entre 1980 y 2013". También nombramos los ejes, usando "Año" para el eje x y "Número de inmigrantes" para el eje y.
+
+Además, exploramos cómo cambiar la fuente del texto, ajustando la familia de la fuente (Arial), el tamaño (14) y el color (gris). Finalmente, ajustamos el tamaño del título para que sea más legible y nos aseguramos de que el gráfico se vea como queríamos, con el año en la parte inferior. ¡Ahora tenemos un gráfico interactivo con ejes y título bien definidos! En la próxima clase, veremos cómo ajustar el color y otros detalles para mejorar aún más nuestro gráfico. ¿Hay algo más en lo que te pueda ayudar?
+
+Copiar texto de Luri al portapapeles
+///////////////////////////////////////////////////////////////////////////////////////
+ 04 Visualizando datos con gráficos interactivos
+ Siguiente pregunta
+
+Ricardo es un científico de datos que está analizando la variación de la temperatura a lo largo del tiempo en una región específica. Su tarea es crear un gráfico interactivo que muestre la evolución de la temperatura en los últimos años. Para ello, ha decidido utilizar la biblioteca Plotly y crear un gráfico con interactividad.
+
+¿Cuál de las siguientes alternativas presenta la manera correcta de crear un gráfico de líneas interactivo y personalizarlo con la biblioteca Plotly?
+
+Alternativa incorreta
+Utilizar la función plotly.graph_objs.Figure() para crear el gráfico y luego personalizar el diseño utilizando la función fig.update_layout().
+
+
+Alternativa incorreta
+Utilizar la función plotly.express.bar() para crear el gráfico y luego personalizar el diseño utilizando la función plotly.express.update().
+
+
+Alternativa incorreta
+Utilizar la función plotly.express.line() para crear el gráfico y luego personalizar el diseño utilizando la función fig.update_layout().
+
+
+Para crear un gráfico de líneas interactivo con la biblioteca Plotly Express, es necesario utilizar la función plotly.express.line(). Además, es posible personalizar el diseño del gráfico utilizando la función fig.update_layout(), que nos permite definir parámetros como la anchura y altura del gráfico, el ángulo de las etiquetas del eje X, el título de los ejes X e Y, etc.
+
+Alternativa incorreta
+Utilizar la función plotly.graph_objs.Plot() para crear el gráfico y luego agregar los datos utilizando la función fig.update_layout().
+*******************************************************************************************
+¡Hola! En esta clase, aprendimos a mejorar nuestros gráficos interactivos con Plotly. Aquí tienes un resumen de los puntos clave:
+
+Colores y Ancho de Línea:
+
+Podemos cambiar el color de las líneas en nuestros gráficos usando line_color dentro de update_traces.
+También podemos ajustar el grosor de las líneas con line_width para hacerlas más visibles.
+Gráficos Dinámicos con Datos de Sudamérica:
+
+Se preparó un DataFrame llamado Sudamerica eliminando columnas innecesarias como "Continente", "Región" y "Total".
+Se transpuso el DataFrame para que los países fueran las columnas y los años las filas.
+Gráficos Interactivos con Múltiples Países:
+
+Se utilizó Plotly para crear un gráfico dinámico que muestra la inmigración hacia Canadá de varios países sudamericanos.
+El parámetro color (o hue) se estableció en el país, lo que permite que cada país tenga su propia línea de color en el gráfico.
+Se añadieron marcadores (markers=True) para facilitar la visualización de los puntos de datos.
+Interactividad y Comparación:
+
+El gráfico permite hacer clic en los países para agregarlos o eliminarlos de la visualización, facilitando la comparación entre ellos.
+Se pueden ver los valores exactos al pasar el cursor sobre los puntos del gráfico, mostrando el año, la cantidad de inmigrantes y el país.
+Exportar a HTML:
+
+Se mencionó que en la próxima clase aprenderemos a exportar el gráfico interactivo a un archivo HTML para que pueda ser compartido y explorado por cualquier persona.
+En resumen, esta clase nos mostró cómo usar Plotly para crear gráficos interactivos que no solo visualizan datos, sino que también permiten a los usuarios explorar y comparar diferentes categorías de manera intuitiva. ¡Espero que te sea útil! ¿Hay algo más en lo que te pueda ayudar?
+*******************************************************************************************
+06
+Exportando gráficos interactivos en HTML
+¡Hola! En esta clase, aprendiste cómo exportar gráficos interactivos de Plotly a archivos HTML. Esto te permite compartir tus visualizaciones en la web de manera sencilla, para que cualquier persona pueda acceder a ellas y explorar los datos de forma dinámica.
+
+Viste cómo usar el comando fig.write_html para guardar tu gráfico como un archivo HTML, especificando la ruta y el nombre del archivo. También aprendiste cómo estos gráficos interactivos permiten hacer zoom, comparar datos y obtener información valiosa de manera más intuitiva.
+
+Finalmente, se destacó cómo el uso de gráficos interactivos puede hacer que tus presentaciones de negocios sean más interesantes y faciliten la visualización de los resultados.
+
+
+¡Enhorabuena, has acertado!
+ Discutir en el Foro
+ Siguiente pregunta
+**********************************************************************************+
+07
+Para saber más: animación de gráficos para mostrar cambios durante un lapso
+ Siguiente pregunta
+
+Aprendimos a crear gráficos interactivos con la biblioteca Plotly, pero ¿sabías que es posible ir más allá y crear animaciones con esa misma biblioteca? Además de hacer nuestros gráficos más interactivos, las animaciones pueden traer aún más dinamismo y creatividad a nuestras visualizaciones.
+
+Para ilustrar esta idea, mira la captura de pantalla de un notebook donde creé una animación con los datos de inmigración de Brasil a Canadá. El código que genera esta animación comienza mostrando la figura sin ninguna línea. Al hacer clic en el botón "Play", en la esquina superior izquierda de la figura, la línea comienza a aparecer en el primer tick del eje X, que corresponde al año 1980, y se mueve hasta llegar al final del eje X, mostrando la evolución de los datos a lo largo del tiempo:
+
+Captura de pantalla del Google Colab mostrando la figura generada con la biblioteca Plotly con animación.
+
+Con esto, podemos notar que la animación es una excelente manera de visualizar datos en evolución a lo largo del tiempo.
+
+Te estarás preguntando: ¿cómo podemos crear una animación como esta? No te preocupes, estoy aquí para mostrarte el camino. ¡Te explicaré paso a paso!
+
+1 - Después de obtener el DataFrame solo con los datos de Colombia, como hicimos al principio del curso, cambia el tipo de datos de la columna que contiene los años a int en lugar de mantenerlos como strings:
+
+datos_col['Año'] = datos_col['Año'].astype(int)
+Copia el código
+2 - Luego, creamos un bloque de código donde construiremos esta animación, importando plotly.graph_objs, un módulo de la biblioteca Plotly que contiene clases para crear visualizaciones de datos interactivas y personalizadas.
+
+import plotly.graph_objs as go
+Copia el código
+3 - A continuación, se crea una figura vacía usando la función go.Figure() y se asigna a la variable fig.
+
+fig = go.Figure()
+Copia el código
+4 - Luego, se agrega una línea al gráfico usando la función fig.add_trace(). En esta función, se pasa un objeto Scatter, que recibe como argumentos los datos para los ejes X e Y del gráfico. Para que el gráfico se muestre sin línea antes de hacer clic en el botón de reproducción, usamos iloc[0] en ambas variables. Esto se debe a que iloc[0] selecciona el primer valor de las columnas año e inmigrantes de los datos de Brasil, respectivamente. Al agregar este punto de datos a la visualización del gráfico, inicialmente se mostrará como un solo punto, sin líneas que lo conecten a otros puntos. Además, pasamos el modo de visualización lines, que significa líneas, y el nombre de la línea. También se define el grosor de la línea usando el diccionario line=dict(width=4).
+
+fig.add_trace(
+    go.Scatter(x=[datos_col['Año'].iloc[0]], y=[datos_col['Inmigrantes'].iloc[0]], mode='lines', name='Inmigrantes', line=dict(width=4))
+)
+Copia el código
+5 - Después de eso, se definen el título del gráfico y las configuraciones de los ejes X e Y usando la función fig.update_layout(). Los argumentos del título son:
+
+text='<b>Inmigración de Colombianos hacia Canadá en el periodo de 1980 a 2013</b>': define el texto del título como una cadena formateada en negrita (usando las etiquetas HTML "<b>" y "</b>")
+x=0.12: define la posición horizontal del título en el diseño, en relación con el ancho de la figura. El valor 0.12 especifica que el título comenzará al 12% del ancho de la figura.
+xanchor='left': define la alineación horizontal del título. El valor 'left' significa que el título se alineará a la izquierda del diseño.
+font=dict(size=20): define el tamaño del texto del título.
+Los argumentos para xaxis y yaxis son diccionarios, con las siguientes propiedades:
+
+range=[1980, 2013]: define el rango del eje, es decir, el valor mínimo y máximo que se mostrarán. En este caso, el eje x tendrá como valor mínimo 1980 y como valor máximo 2013, mientras que el eje y tendrá como valor mínimo 0 y como valor máximo 7000.
+
+autorange=False: define si los límites del eje se ajustarán automáticamente (True) o no (False). En este caso, los límites no se ajustarán automáticamente.
+
+title='<b>Año</b>': define el título del eje. En este caso, el eje x tendrá el título "Año", que está formateado en negrita (usando las etiquetas HTML "" y "").
+
+title='<b>Número de Inmigrantes</b>': define el título del eje. En este caso, el eje y tendrá el título "Número de Inmigrantes", que está formateado en negrita (usando las etiquetas HTML "<b>" y "</b>").
+
+fig.update_layout(
+    title=dict(
+        text='<b>Inmigración de Colombianos hacia Canadá en el periodo de 1980 a 2013</b>',
+        x=0.12,
+        xanchor='left',
+        font=dict(size=20)
+    ),
+    xaxis=dict(range=[1980, 2013], autorange=False, title='<b>Año</b>'),
+    yaxis=dict(range=[0, 7000], autorange=False, title='<b>Número de Inmigrantes</b>'),
+)
+Copia el código
+6 - Se agrega un botón "Play" para la animación usando el argumento updatemenus. Este argumento es una lista que define las opciones de menú para la figura. El valor asignado a esta lista es un diccionario, con las siguientes propiedades:
+
+type='buttons': define que el menú estará compuesto por botones.
+showactive=False: define que ningún botón estará activo inicialmente.
+buttons=[dict(label='Play', method='animate', args=[None, {'frame': {'duration': 100, 'redraw': True}, 'fromcurrent': True}])]: Define el botón que se mostrará en el menú. Este botón tiene la etiqueta "Play" (es decir, "reproducir"), que se muestra en el propio botón. El método animate se utiliza para activar la animación de los datos. El argumento args es una lista que contiene dos elementos: el primero es None, indicando que ningún trace (o capa) del gráfico será afectado por la animación, y el segundo es un diccionario que especifica los parámetros de la animación. El parámetro frame define la duración de cada cuadro de la animación y la actualización de cada cuadro. El parámetro fromcurrent determina si se debe mantener el cuadro actual o si la animación debe comenzar desde el primer cuadro.
+ updatemenus=[dict(
+        type='buttons',
+        showactive=False,
+        buttons=[dict(
+            label='Play',
+            method='animate',
+            args=[None, {'frame': {'duration': 100, 'redraw': True}, 'fromcurrent': True}]
+        )]
+    )],
+Copia el código
+7 - La anchura (width) y la altura (height) del gráfico se definen respectivamente como 1000 y 500.
+
+# Todo el código de la celda anterior, y después:
+width=1000,
+height=500) 
+Copia el código
+8 - Las configuraciones de animación se especifican mediante la variable frames, que es una lista de objetos Frame de Plotly, conteniendo los datos para cada cuadro de la animación. Cada Frame contiene un trace, que en este caso es un objeto Scatter representando un punto en el gráfico, donde X es el año y Y es el número de inmigrantes. Un bucle for se utiliza para crear un objeto Frame para cada año en el conjunto de datos, añadiendo un punto adicional al gráfico en cada iteración.
+
+Finalmente, la lista frames se asigna a la propiedad frames del objeto Figure (fig) creado anteriormente, lo que permite que la animación se muestre en el gráfico cuando se presiona el botón de control de animación. Cada Frame contiene los datos del gráfico para un año específico y se muestra secuencialmente al presionar el botón "Play".
+
+frames = [go.Frame(data=[go.Scatter(x=datos_col['Año'].iloc[:i+1], y=datos_col['inmigrantes'].iloc[:i+1])]) for i in range(len(datos_col))]
+fig.frames = frames
+Copia el código
+9 - La función fig.show() se llama al final para mostrar el gráfico animado en el notebook. Al presionar el botón "Play", el gráfico se animará, mostrando la inmigración de Brasil a Canadá desde 1980 hasta 2013.
+
+El código completo se muestra a continuación:
+
+import plotly.graph_objs as go
+
+# Criando uma figura
+fig = go.Figure()
+
+# Adicionando a linha do gráfico e definindo a espessura da linha
+fig.add_trace(
+    go.Scatter(x=[datos_col['Año'].iloc[0]], y=[datos_col['Inmigrantes'].iloc[0]], mode='lines', name='Inmigrantes', line=dict(width=4))
+)
+
+# Definir la configuración del layout
+fig.update_layout(
+    title=dict(
+        text='<b>Inmigración de Colombianos hacia Canadá en el periodo de 1980 a 2013</b>',
+        x=0.12,
+        xanchor='left',
+        font=dict(size=20)
+    ),
+    xaxis=dict(range=[1980, 2013], autorange=False, title='<b>Año</b>'),
+    yaxis=dict(range=[0, 7000], autorange=False, title='<b>Número de Inmigrantes</b>'),
+    updatemenus=[dict(
+        type='buttons',
+        showactive=False,
+        buttons=[dict(
+            label='Play',
+            method='animate',
+            args=[None, {'frame': {'duration': 100, 'redraw': True}, 'fromcurrent': True}]
+        )]
+    )],
+    width=1000, 
+    height=500 
+)
+
+# Definir la configuración de la animación
+frames = [go.Frame(data=[go.Scatter(x=datos_col['Año'].iloc[:i+1], y=datos_col['Inmigrantes'].iloc[:i+1])]) for i in range(len(datos_col))]
+fig.frames = frames
+
+# Mostrar la figura
+fig.show()
+Copia el código
+Este enfoque ilustra cómo se pueden crear animaciones dinámicas utilizando Plotly, no solo para líneas sino también para puntos, barras, mapas y mucho más, aprovechando la amplia gama de herramientas y características que ofrece Plotly para crear visualizaciones interactivas y atractivas.
+*******************************************************************************************
+08
+Desafío: creando una animación para comparar diferentes datos
+ Siguiente pregunta
+
+En la actividad anterior, fue posible comprender cómo crear una animación con la biblioteca Plotly. ¡Ahora viene otro desafío!
+
+¿Recuerdas que creamos una figura estática que contiene los datos de inmigración de Brasil y Argentina? Tu tarea es crear un gráfico animado con Plotly que muestre estos datos. El gráfico debe tener las siguientes características:
+
+Dos líneas: una para Brasil y otra para Argentina.
+Un botón "Play" para iniciar la animación, mostrando el aumento o disminución del número de inmigrantes a lo largo de los años.
+Las configuraciones de animación deben hacer que las dos líneas se muestren y animen al mismo tiempo.
+Consejos:
+
+Crea un DataFrame con los datos de Argentina y no olvides dejar la columna de años como tipo int (entero).
+Utiliza el código proporcionado para Brasil como base y adáptalo para incluir los datos de Argentina.
+Para configurar las animaciones, puedes hacer un bucle for para recorrer el DataFrame datos_brasil y, para cada iteración, crear una nueva lista que contenga dos objetos del tipo go.Scatter, uno para cada país. Luego, cada lista puede ser utilizada para crear un objeto go.Frame, que se agrega a la lista de frames. Finalmente, la lista de frames puede ser asignada al objeto fig, que es la figura del gráfico que se animará. Con esto, cuando se inicie la animación, el gráfico mostrará las dos líneas en movimiento, una para Brasil y otra para Argentina.
+Ver opinión del instructor
+Opinión del instructor
+
+Para crear la animación del desafío, después de crear los DataFrames y cambiar el tipo de la columna Año a int, podemos ejecutar el siguiente código:
+
+import plotly.graph_objs as go
+
+# Creando una figura
+fig = go.Figure()
+
+# Agregando la línea con los datos de Brasil
+fig.add_trace(
+    go.Scatter(x=[datos_brasil['Año'].iloc[0]], y=[datos_brasil['Inmigrantes'].iloc[0]], mode='lines', name='Inmigrantes de Brasil', line=dict(width=4))
+)
+
+# Agregando la línea con los datos de Argentina
+fig.add_trace(
+    go.Scatter(x=[datos_argentina['Año'].iloc[0]], y=[datos_argentina['Inmigrantes'].iloc[0]], mode='lines', name='Inmigrantes de Argentina', line=dict(width=4))
+)
+
+# Definiendo las configuraciones de diseño
+fig.update_layout(
+    title=dict(
+        text='<b>Inmigración de Brasil y Argentina a Canadá en el período de 1980 a 2013</b>',
+        x=0.1,
+        font=dict(size=18)
+    ),
+    xaxis=dict(range=[1980, 2013], autorange=False, title='<b>Año</b>'),
+    yaxis=dict(range=[0, 3000], autorange=False, title='<b>Número de inmigrantes</b>'),
+    updatemenus=[dict(
+        type='buttons',
+        showactive=False,
+        buttons=[dict(
+            label='Play',
+            method='animate',
+            args=[None, {'frame': {'duration': 100, 'redraw': True}, 'fromcurrent': True}]
+        )]
+    )],
+    width=1200, # Ancho de la figura en píxeles
+    height=600 # Altura de la figura en píxeles
+)
+
+# Definiendo las configuraciones de animación
+frames = []
+for i in range(len(datos_brasil)):
+    frame_data = [
+        go.Scatter(x=datos_brasil['Año'].iloc[:i+1], y=datos_brasil['Inmigrantes'].iloc[:i+1]),
+        go.Scatter(x=datos_argentina['Año'].iloc[:i+1], y=datos_argentina['Inmigrantes'].iloc[:i+1])
+    ]
+    frame = go.Frame(data=frame_data)
+    frames.append(frame)
+fig.frames = frames
+
+# Mostrando la figura
+fig.show()
+Copia el código
+En este caso, hemos agregado dos líneas, una para cada país con fig.add_trace(). Para animar las dos líneas juntas, creamos una lista de frames que se utilizarán para la animación del gráfico. El bucle for recorre la longitud de los datos de inmigración de Brasil (que debe ser la misma que la de los datos de inmigración de Argentina). Para cada índice i en el bucle, creamos un frame_data que contiene dos objetos Scatter de Plotly: uno para Brasil y otro para Argentina. Cada Scatter está definido por los datos correspondientes de inmigración para el país en cuestión hasta el índice i. Luego, creamos un objeto frame que contiene el frame_data correspondiente al índice i. Finalmente, este objeto frame se agrega a la lista de frames. El resultado es una lista de frames que representan la evolución de la inmigración de Brasil y Argentina a Canadá a lo largo del tiempo, que se utilizarán para crear la animación del gráfico.
+
+*************************************************************************************************
+09
+Proyecto final
+ Siguiente pregunta
+
+Aquí puedes descargar los archivos del proyecto completo.
+
+Descargue los archivos en Github o haga clic aquí para descargarlos directamente.
+*************************************************************************************************
+10
+Lo que aprendimos
+ Siguiente pregunta
+
+Lo que aprendimos en esta clase:
+
+Importar el módulo express de la biblioteca Plotly;
+Crear un gráfico de líneas interactivo;
+Explorar las funcionalidades de la biblioteca Plotly;
+Modificar el tamaño de un gráfico interactivo;
+Rotar los ticks del eje X;
+Agregar título y etiquetas a los ejes;
+Personalizar los gráficos;
+Cambiar colores. Agregar marcadores;
+Guardar gráficos interactivos en formato HTML.
+******************************************************************************************************
+ 11 Conclusión
+¡Hola! ¡Felicitaciones por llegar al final de esta etapa!
+
+En resumen, en esta clase aprendiste a crear visualizaciones de datos impactantes utilizando bibliotecas de Python como Matplotlib, Seaborn y Plotly.
+
+Comenzaste manipulando datasets con pandas para extraer información relevante y generar informes. Luego, exploraste Matplotlib para crear gráficos básicos, personalizarlos con títulos, rótulos y escalas, y organizarlos en subplots.
+
+Después, te sumergiste en Seaborn para utilizar paletas de colores atractivas y realizar operaciones interesantes que hacen que tus visualizaciones sean más impactantes.
+
+Finalmente, descubriste Plotly, que te permite crear gráficos interactivos para facilitar la comunicación de datos y el storytelling.
+
+¡Espero que hayas disfrutado este entrenamiento y que sigas explorando el mundo de la visualización de datos! ¡Mucho éxito en tus próximos proyectos!
+
+Copiar texto de Luri al portapapeles
+*******************************************************************************************************
+~ https://www.aluracursos.com/blog/data-visualization-conociendo-las-bibliotecas-del-python
+********************************************************************************************************+
+*********************************************************************************************************
+
+
